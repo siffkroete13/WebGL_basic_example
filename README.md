@@ -32,10 +32,9 @@ Optional:
 9.) Konsole in Visual Studio Code öffnen 
 
 10.) git init
-11.) git add README.md
-12.) git add .
-13.) git commit -m "first commit"
-14.) git remote add origin https://github.com/siffkroete13/WebGL_basic_example.git
-15.) git push -u origin main
+11.) git add .
+12.) git commit -m "first commit"
+13.) git remote add origin https://github.com/siffkroete13/WebGL_basic_example.git
+14.) git push -u origin main
 
 Fertig!
