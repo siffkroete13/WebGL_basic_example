@@ -113,6 +113,26 @@ var MyUtil = (function() {
 		];
 	  
 	}
+
+	Util.prototype.printMatrix4 = function(matrix, name = '') {
+		// Assumes the matrix is a 4x4 matrix in column-major order (as used in WebGL)
+		if (matrix.length !== 16) {
+			console.error("Invalid matrix length. Expected a 4x4 matrix.");
+			return;
+		}
+	
+		const fieldSize = 10; // Size of each field for alignment
+		console.log(name + ":");
+		for (let i = 0; i < 4; i++) {
+			let row = "";
+			for (let j = 0; j < 4; j++) {
+				// Format the number to a fixed width
+				let num = matrix[j * 4 + i].toFixed(4);
+				row += num.padStart(fieldSize, ' ') + " ";
+			}
+			console.log(row);
+		}
+	}
 	
 	var instance = null;
 	
@@ -126,3 +146,5 @@ var MyUtil = (function() {
 	}
 	
 })();
+
+export {MyUtil}

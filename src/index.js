@@ -1,10 +1,15 @@
 import { MyUtil } from './utils/my-util';
+import { Log } from './Log.js';
 import { mat4 } from 'gl-matrix';
+
+var myUtil = MyUtil.getInstance();
 
 // Start here
 function main() {
 	const canvas = document.querySelector('#meineWebGLCanvas');
 	const gl = canvas.getContext('webgl');
+
+	// Log.log('canvas und gl: ', canvas, gl);
 	
 	// If we don't have a GL context, give up now
 	if (!gl) {
@@ -37,6 +42,9 @@ function main() {
 	// Initialize a shader program; this is where all the lighting for the vertices and so forth is established.
 	const shaderProgram = initShaderProgram(gl, vsSource, fsSource);
 	
+	Log.logProgram(gl, shaderProgram);
+
+
 	// Collect all the info needed to use the shader program. Look up which attributes our shader program is using
 	// for aVertexPosition, aVertexColor and also look up uniform locations.
 	const programInfo = {
@@ -47,9 +55,10 @@ function main() {
 		},
 		uniformLocations: {
 		  projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-		  modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+		  modelViewMatrix: gl.getUniformLocation(shaderProgram, 'modelViewMatrix'),
 		},
 	};
+
 
   	// Initialize the buffers we'll need
 	const positionBuffer = gl.createBuffer();
@@ -130,6 +139,9 @@ function drawScene(gl, programInfo, buffers) {
 	
 	const angle = 45 * (Math.PI / 180);
 	mat4.rotate(modelViewMatrix, modelViewMatrix, angle, [0, 0, 1]);
+
+	myUtil.printMatrix4(projectionMatrix);
+	myUtil.printMatrix4(modelViewMatrix);
 
   	// Tell WebGL how to pull out the positions from the position buffer into the vertexPosition attribute
   	{
